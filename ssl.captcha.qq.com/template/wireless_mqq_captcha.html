@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="zh-CN">
+    <meta charset="UTF-8" />
+    <meta name="renderer" content="webkit" />
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>验证码</title>
+</head>
+
+<body>
+    <div><code>return: <span id="cap_return"></span></code></div>
+    <div><code>ticket: <span id="cap_ticket"></span></code></div>
+    <div id="cap_iframe" style="width: 230px; height: 220px"></div>
+    <script type="text/javascript">
+        !(function () {
+            var elem = document.createElement("script");
+            elem.type = "text/javascript";
+            elem.src =
+                "http://captcha.qq.com/template/TCapIframeApi.js" + location.search;
+            document.getElementsByTagName("head").item(0).appendChild(elem);
+            elem.onload = function () {
+                capInit(document.getElementById("cap_iframe"), {
+                    callback: function (data) {
+                        var div = document.getElementById("cap_return");
+                        div.innerHTML = data.ret;
+                        var div = document.getElementById("cap_ticket");
+                        div.innerHTML = data.ticket;
+                    },
+                    showHeader: !1,
+                });
+            };
+        })();
+    </script>
+</body>
+
+</html>
