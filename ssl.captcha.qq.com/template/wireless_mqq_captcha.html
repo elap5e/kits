@@ -15,18 +15,19 @@
     <div id="cap_iframe" style="width: 230px; height: 220px"></div>
     <script type="text/javascript">
         !(function () {
-            var elem = document.createElement("script");
-            elem.type = "text/javascript";
-            elem.src =
-                "http://captcha.qq.com/template/TCapIframeApi.js" + location.search;
-            document.getElementsByTagName("head").item(0).appendChild(elem);
-            elem.onload = function () {
+            var l = window.location;
+            var e = document.createElement("script");
+            e.type = "text/javascript";
+            e.src =
+                "http://captcha.qq.com/template/TCapIframeApi.js" + (l.search ? l.search : "?" + l.hash.slice(1).split('#').slice(0, 1));
+            document.getElementsByTagName("head").item(0).appendChild(e);
+            e.onload = function () {
                 capInit(document.getElementById("cap_iframe"), {
-                    callback: function (data) {
-                        var div = document.getElementById("cap_return");
-                        div.innerHTML = data.ret;
-                        var div = document.getElementById("cap_ticket");
-                        div.innerHTML = data.ticket;
+                    callback: function (a) {
+                        var d = document.getElementById("cap_return");
+                        d.innerHTML = a.ret;
+                        var d = document.getElementById("cap_ticket");
+                        d.innerHTML = a.ticket;
                     },
                     showHeader: !1,
                 });
